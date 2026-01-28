@@ -1,38 +1,25 @@
-export function detectComponentType(reference) {
-  if (!reference) return "unknown";
+import fs from "fs";
+import path from "path";
+import sqlite3 from "sqlite3";
+import { detectComponentType, normalizeValue, buildTags } from "./utils.js";
 
-  if (reference.startsWith("R")) return "resistor";
-  if (reference.startsWith("C")) return "capacitor";
-  if (reference.startsWith("L")) return "inductor";
-  if (reference.startsWith("D")) return "diode";
-  if (reference.startsWith("Q")) return "transistor";
-  if (reference.startsWith("U")) return "ic";
-  if (reference.startsWith("J")) return "connector";
+const db = new sqlite3.Database("symbols.db");
 
-  return "other";
-}
+const SVG_DIR = path.join(__dirname, "svgs"); // folder where all 26k SVGs are
 
-export function normalizeValue(value) {
-  if (!value) return null;
+const files = fs.readdirSync(SVG_DIR).filter(f => f.endsWith(".svg"));
+console.log(`Found ${files.length} SVG files.`);
 
-  const v = value.toLowerCase();
+files.forEach(file => {
+  const base = path.parse(file).name; // e.g. R1, C10
+  const component = detectComponentType(base);
+  const value = normalizeValue(base); // if your filenames include value
+  const tags = buildTags(component, value);
+  const svg_path = path.join("svgs", file); // relative path to SVG
 
-  if (v.endsWith("k")) return parseFloat(v) * 1_000;
-  if (v.endsWith("m")) return parseFloat(v) * 1_000_000;
-  if (v.endsWith("u")) return parseFloat(v) * 0.000001;
-  if (v.endsWith("n")) return parseFloat(v) * 0.000000001;
-  if (v.endsWith("p")) return parseFloat(v) * 0.000000000001;
-
-  return parseFloat(v);
-}
-
-export function buildTags(component, value) {
-  const tags = [component];
-
-  if (component === "resistor") tags.push("ohm");
-  if (component === "capacitor") tags.push("farad");
-
-  if (value) tags.push(value);
-
-  return tags.join(",");
-}
+  db.run(
+    `INSERT OR REPLACE INTO symbols (reference, component_type, value_raw, value_normalized, tags, svg_path)
+     VALUES (?, ?, ?, ?, ?, ?)`,
+    [base, component, base, value, tags, svg_path]
+  );
+});

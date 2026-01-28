@@ -50,18 +50,21 @@ db.serialize(() => {
       const valueMatch = base.match(/([0-9.]+[kmunr]?)/i);
       const raw = valueMatch?.[1] ?? null;
 
+      // FIX: store forward slashes for browser
+      const relativePath = file.replace(/\\/g, "/").replace("data/", "");
+
       stmt.run(
-        rule.type,
-        rule.ref,
-        rule.type,
-        raw,
+        rule.type,       // name
+        rule.ref,        // reference
+        rule.type,       // component_type
+        raw,             // value_raw
         normalizeValue(raw),
-        rule.tag,
-        file.replace("data\\", "")
+        rule.tag,        // tags
+        relativePath     // svg_path with forward slashes
       );
     }
   }
 
   stmt.finalize();
-  console.log(" Indexing complete");
+  console.log("✅ Indexing complete with browser-friendly paths");
 });

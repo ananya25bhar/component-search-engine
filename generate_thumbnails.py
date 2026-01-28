@@ -3,8 +3,11 @@ import subprocess
 
 base = os.path.dirname(os.path.abspath(__file__))
 schem_dir = os.path.join(base, "data", "schematics")
-thumb_dir = os.path.join(base, "data", "thumbnails")
 
+# ✅ CHANGE HERE
+thumb_dir = os.path.join(base, "data", "svgs")
+
+# ✅ ensure folder exists
 os.makedirs(thumb_dir, exist_ok=True)
 
 kicad_cli = r"C:\Program Files\KiCad\9.0\bin\kicad-cli.exe"
