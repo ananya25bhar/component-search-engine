@@ -6,7 +6,7 @@ interface ComponentItem {
   component_type: string;
   value_raw: string;
   value_normalized: number;
-  svg_url: string; // relative URL from backend
+  svg_url: string;
 }
 
 const RECENT_KEY = "recent_components";
@@ -20,41 +20,33 @@ export default function App() {
 
   const debounceRef = useRef<number | null>(null);
 
-  /* ===============================
-     Load recently used (on mount)
-     =============================== */
+  /* Load recently used */
   useEffect(() => {
     const saved = localStorage.getItem(RECENT_KEY);
     if (saved) setRecent(JSON.parse(saved));
   }, []);
 
-  /* ===============================
-     Fetch from backend (proxy)
-     =============================== */
+  /* Fetch components */
   const fetchComponents = async (q: string) => {
     setLoading(true);
     try {
       const url = q ? `/search?q=${encodeURIComponent(q)}` : `/search`;
       const res = await fetch(url);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data: ComponentItem[] = await res.json();
       setResults(data);
     } catch (err) {
-      console.error("Fetch error:", err);
+      console.error(err);
       setResults([]);
     } finally {
       setLoading(false);
     }
   };
 
-  /* Load all components initially */
   useEffect(() => {
     fetchComponents("");
   }, []);
 
-  /* ===============================
-     Debounced search
-     =============================== */
+  /* Debounced search */
   useEffect(() => {
     if (debounceRef.current) clearTimeout(debounceRef.current);
 
@@ -67,13 +59,11 @@ export default function App() {
     };
   }, [query]);
 
-  /* ===============================
-     Click handler
-     =============================== */
+  /* Click handler */
   const handleClick = (item: ComponentItem) => {
     const updated = [
       item,
-      ...recent.filter((r) => r.svg_url !== item.svg_url),
+      ...recent.filter((r) => r.reference !== item.reference),
     ].slice(0, 5);
 
     setRecent(updated);
@@ -96,7 +86,7 @@ export default function App() {
         }}
       />
 
-      {/* Recently Used */}
+      {/* 🔥 Recently Used (BOLD FIXED) */}
       <div
         style={{
           background: "#e0f2fe",
@@ -105,14 +95,27 @@ export default function App() {
           marginBottom: 32,
         }}
       >
-        <h4>🕒 Recently Used</h4>
+        <div
+          style={{
+            fontWeight: 700,
+            fontSize: 18,
+            marginBottom: 10,
+          }}
+        >
+          🕒 Recently Used
+        </div>
+
         {recent.length === 0 && <p>No recent components</p>}
 
         {recent.map((item, idx) => (
           <div
             key={idx}
             onClick={() => handleClick(item)}
-            style={{ cursor: "pointer", padding: 6 }}
+            style={{
+              cursor: "pointer",
+              padding: 6,
+              fontWeight: 500,
+            }}
           >
             {item.name} ({item.component_type} – {item.value_raw})
           </div>
@@ -143,9 +146,9 @@ export default function App() {
             width={48}
             height={48}
             loading="lazy"
-            onError={(e) => {
-              (e.currentTarget as HTMLImageElement).style.display = "none";
-            }}
+            onError={(e) =>
+              ((e.currentTarget as HTMLImageElement).style.display = "none")
+            }
             style={{
               border: "1px solid #ddd",
               borderRadius: 4,
