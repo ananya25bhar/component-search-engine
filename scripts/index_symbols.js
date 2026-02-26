@@ -66,5 +66,5 @@ db.serialize(() => {
   }
 
   stmt.finalize();
-  console.log("✅ Indexing complete with browser-friendly paths");
+  console.log(" Indexing complete with browser-friendly paths");
 });

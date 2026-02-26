@@ -1,196 +1,185 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 
-interface ComponentItem {
-  name: string;
-  reference: string;
-  component_type: string;
-  value_raw: string;
-  value_normalized: number;
+interface SymbolItem {
+  id: number;
+  symbol_name: string;
   svg_url: string;
-}
 
-const RECENT_KEY = "recent_components";
+  name?: string;
+  company?: string;
+  category?: string;
+  device_type?: string;
+  voltage_rating?: number;
+  current_rating?: number;
+  power_rating?: number;
+  package?: string;
+  pin_count?: number;
+  mount_type?: string;
+  datasheet?: string;
+  simulation_available?: boolean;
+  simulation_parameters?: Record<string, any>;
+  tags?: string[];
+}
 
 export default function App() {
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState<ComponentItem[]>([]);
-  const [recent, setRecent] = useState<ComponentItem[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [previewSvg, setPreviewSvg] = useState<string | null>(null);
+  const [results, setResults] = useState<SymbolItem[]>([]);
+  const [selected, setSelected] = useState<SymbolItem | null>(null);
 
-  const debounceRef = useRef<number | null>(null);
-
-  /* Load recently used */
   useEffect(() => {
-    const saved = localStorage.getItem(RECENT_KEY);
-    if (saved) setRecent(JSON.parse(saved));
-  }, []);
-
-  /* Fetch components */
-  const fetchComponents = async (q: string) => {
-    setLoading(true);
-    try {
-      const url = q ? `/search?q=${encodeURIComponent(q)}` : `/search`;
-      const res = await fetch(url);
-      const data: ComponentItem[] = await res.json();
-      setResults(data);
-    } catch (err) {
-      console.error(err);
+    if (!query.trim()) {
       setResults([]);
-    } finally {
-      setLoading(false);
+      return;
     }
-  };
 
-  useEffect(() => {
-    fetchComponents("");
-  }, []);
-
-  /* Debounced search */
-  useEffect(() => {
-    if (debounceRef.current) clearTimeout(debounceRef.current);
-
-    debounceRef.current = window.setTimeout(() => {
-      fetchComponents(query.trim());
-    }, 300);
-
-    return () => {
-      if (debounceRef.current) clearTimeout(debounceRef.current);
-    };
+    fetch(`http://localhost:3000/api/search?q=${encodeURIComponent(query)}`)
+      .then(res => res.json())
+      .then(data => Array.isArray(data) ? setResults(data) : setResults([]))
+      .catch(err => {
+        console.error("Fetch error:", err);
+        setResults([]);
+      });
   }, [query]);
 
-  /* Click handler */
-  const handleClick = (item: ComponentItem) => {
-    const updated = [
-      item,
-      ...recent.filter((r) => r.reference !== item.reference),
-    ].slice(0, 5);
-
-    setRecent(updated);
-    localStorage.setItem(RECENT_KEY, JSON.stringify(updated));
-    setPreviewSvg(item.svg_url);
-  };
-
   return (
-    <div style={{ padding: 32, fontFamily: "Segoe UI, sans-serif" }}>
-      {/* Search */}
-      <input
-        placeholder="Search components (resistor, +5v, ic...)"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        style={{
-          width: "100%",
-          padding: 16,
-          fontSize: 18,
-          marginBottom: 24,
-        }}
-      />
+    <div style={{ fontFamily: "Inter, Arial", background: "#0b0f1a", color: "#e5e7eb", minHeight: "100vh" }}>
+      {/* HEADER */}
+      <div style={{ background: "#0a0d16", padding: "16px 28px", fontSize: 22, fontWeight: 600, borderBottom: "1px solid #1e293b", color: "#f8fafc" }}>
+        Component Search
+      </div>
 
-      {/* 🔥 Recently Used (BOLD FIXED) */}
-      <div
-        style={{
-          background: "#e0f2fe",
-          padding: 16,
-          borderRadius: 12,
-          marginBottom: 32,
-        }}
-      >
-        <div
+      {/* SEARCH */}
+      <div style={{ padding: 30, textAlign: "center" }}>
+        <input
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search electronic components…"
           style={{
-            fontWeight: 700,
-            fontSize: 18,
-            marginBottom: 10,
+            width: "70%",
+            padding: 14,
+            fontSize: 15,
+            borderRadius: 8,
+            border: "1px solid #334155",
+            background: "#0a0d16",
+            color: "#e5e7eb",
+            outline: "none"
           }}
-        >
-          🕒 Recently Used
-        </div>
+        />
+      </div>
 
-        {recent.length === 0 && <p>No recent components</p>}
-
-        {recent.map((item, idx) => (
+      {/* GRID: 5 thumbnails per row */}
+      <div style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(5, 1fr)",
+        gap: 20,
+        padding: "0 30px 40px"
+      }}>
+        {results.map(item => (
           <div
-            key={idx}
-            onClick={() => handleClick(item)}
+            key={item.id}
+            onClick={() => setSelected(item)}
             style={{
+              background: "#0a0d16",
+              padding: 16,
+              borderRadius: 12,
+              border: "1px solid #1e293b",
               cursor: "pointer",
-              padding: 6,
-              fontWeight: 500,
+              transition: "0.2s"
             }}
+            onMouseEnter={e => e.currentTarget.style.transform = "translateY(-4px)"}
+            onMouseLeave={e => e.currentTarget.style.transform = "translateY(0)"}
           >
-            {item.name} ({item.component_type} – {item.value_raw})
+            <img
+              src={item.svg_url}
+              alt={item.symbol_name}
+              onError={e => e.currentTarget.src = "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg'></svg>"}
+              style={{
+                width: "100%",
+                height: 140,
+                objectFit: "contain",
+                background: "#0b1220",
+                borderRadius: 6
+              }}
+            />
+            <div style={{
+              marginTop: 10,
+              fontWeight: 600,
+              fontSize: 14,
+              textAlign: "center",
+              color: "#f8fafc",
+              wordBreak: "break-word"
+            }}>
+              {item.symbol_name}
+            </div>
           </div>
         ))}
       </div>
 
-      {/* Results */}
-      <h3>Search Results</h3>
-
-      {loading && <p>Loading…</p>}
-      {!loading && results.length === 0 && <p>No components found</p>}
-
-      {results.map((item, idx) => (
+      {/* POPUP */}
+      {selected && (
         <div
-          key={idx}
-          onClick={() => handleClick(item)}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 12,
-            marginBottom: 14,
-            cursor: "pointer",
-          }}
-        >
-          <img
-            src={item.svg_url}
-            alt={item.name}
-            width={48}
-            height={48}
-            loading="lazy"
-            onError={(e) =>
-              ((e.currentTarget as HTMLImageElement).style.display = "none")
-            }
-            style={{
-              border: "1px solid #ddd",
-              borderRadius: 4,
-              background: "#fff",
-            }}
-          />
-
-          <div>
-            <div style={{ fontWeight: 700 }}>{item.name}</div>
-            <div style={{ fontSize: 12, color: "#555" }}>
-              {item.component_type} – {item.value_raw}
-            </div>
-            <div style={{ fontSize: 10, color: "#999" }}>
-              {item.reference}
-            </div>
-          </div>
-        </div>
-      ))}
-
-      {/* Preview Modal */}
-      {previewSvg && (
-        <div
-          onClick={() => setPreviewSvg(null)}
+          onClick={() => setSelected(null)}
           style={{
             position: "fixed",
             inset: 0,
-            background: "rgba(0,0,0,0.6)",
+            background: "rgba(2,6,23,0.85)",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            zIndex: 1000,
+            zIndex: 100
           }}
         >
           <div
             onClick={(e) => e.stopPropagation()}
             style={{
-              background: "#fff",
-              padding: 24,
-              borderRadius: 12,
+              background: "#0a0d16",
+              width: "60%",
+              maxHeight: "80vh",
+              overflowY: "auto",
+              borderRadius: 14,
+              padding: 28,
+              border: "1px solid #1e293b",
+              color: "#e5e7eb"
             }}
           >
-            <img src={previewSvg} alt="Preview" style={{ width: 400 }} />
+            <h2 style={{ marginBottom: 20 }}>
+              {selected.name || selected.symbol_name}
+            </h2>
+
+            <img
+              src={selected.svg_url}
+              alt={selected.symbol_name}
+              style={{
+                maxWidth: "40%",
+                display: "block",
+                margin: "0 auto 24px",
+                background: "#ebedf3",
+                borderRadius: 8
+              }}
+            />
+
+            <p><b>Company:</b> {selected.company || "-"}</p>
+            <p><b>Category:</b> {selected.category || "-"}</p>
+            <p><b>Device Type:</b> {selected.device_type || "-"}</p>
+            <p><b>Package:</b> {selected.package || "-"}</p>
+            <p><b>Pin Count:</b> {selected.pin_count ?? 0}</p>
+            <p><b>Mount Type:</b> {selected.mount_type || "-"}</p>
+            <p><b>Voltage Rating:</b> {selected.voltage_rating ?? 0} V</p>
+            <p><b>Current Rating:</b> {selected.current_rating ?? 0} A</p>
+            <p><b>Power Rating:</b> {selected.power_rating ?? 0} W</p>
+
+            {selected.tags && selected.tags.length > 0 && (
+              <p><b>Tags:</b> {selected.tags.join(", ")}</p>
+            )}
+
+            {selected.datasheet && (
+              <p>
+                <b>Datasheet:</b>{" "}
+                <a href={selected.datasheet} target="_blank" style={{ color: "#38bdf8" }}>
+                  Open
+                </a>
+              </p>
+            )}
           </div>
         </div>
       )}

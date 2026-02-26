@@ -1,105 +1,82 @@
 const express = require("express");
+const cors = require("cors");
 const sqlite3 = require("sqlite3").verbose();
 const path = require("path");
-const fs = require("fs");
-const cors = require("cors");
 
 const app = express();
 const PORT = 3000;
 
 app.use(cors());
+app.use(express.json());
 
 // =======================
-// PATHS (CORRECT)
+// DATABASE
 // =======================
-const ROOT_DIR = path.join(__dirname, ".."); // project root
-const DATA_DIR = path.join(ROOT_DIR, "data");
-const SVG_DIR = path.join(DATA_DIR, "svgs");
-const DB_PATH = path.join(DATA_DIR, "symbols.db");
+const DB_PATH = path.resolve(__dirname, "../data/symbols.db");
+console.log("Using DB at:", DB_PATH);
 
-// =======================
-// CHECK SVG FOLDER
-// =======================
-if (!fs.existsSync(SVG_DIR)) {
-  console.error("❌ SVG folder not found:", SVG_DIR);
-  process.exit(1);
-}
-
-// =======================
-// DATABASE CONNECTION
-// =======================
-const db = new sqlite3.Database(DB_PATH, sqlite3.OPEN_READONLY, (err) => {
+const db = new sqlite3.Database(DB_PATH, (err) => {
   if (err) {
     console.error("❌ DB connection error:", err.message);
-    process.exit(1);
+  } else {
+    console.log("✅ Connected to SQLite database");
   }
-  console.log("✅ Connected to symbols.db");
 });
 
 // =======================
-// SERVE SVG FILES (STATIC)
-// URL: http://localhost:3000/svgs/FILE.svg
+// SERVE SVG FILES
 // =======================
-app.use(
-  "/svgs",
-  express.static(SVG_DIR, {
-    extensions: ["svg"],
-    setHeaders: (res) => {
-      res.setHeader("Cache-Control", "public, max-age=86400");
-    },
-  })
-);
+const SVG_FOLDER = path.resolve(__dirname, "../data/svgs");
+app.use("/svgs", express.static(SVG_FOLDER));
 
 // =======================
-// SEARCH ENDPOINT
+// SEARCH API
 // =======================
-app.get("/search", (req, res) => {
-  const q = (req.query.q || "").toLowerCase().trim();
-  const like = `%${q}%`;
+app.get("/api/search", (req, res) => {
+  const query = req.query.q || "";
+  const searchValue = `%${query}%`;
 
   const sql = `
-    SELECT
-      name,
-      reference,
-      component_type,
-      value_raw,
-      value_normalized,
-      svg_path
+    SELECT *
     FROM symbols
-    WHERE
-      LOWER(name) LIKE ?
-      OR LOWER(component_type) LIKE ?
-      OR LOWER(reference) LIKE ?
-      OR LOWER(value_raw) LIKE ?
-    LIMIT 100
+    WHERE symbol_name LIKE ?
+       OR name LIKE ?
+       OR category LIKE ?
   `;
 
-  db.all(sql, [like, like, like, like], (err, rows) => {
+  db.all(sql, [searchValue, searchValue, searchValue], (err, rows) => {
     if (err) {
-      console.error("❌ SQL Error:", err.message);
+      console.error("SQL ERROR:", err);
       return res.status(500).json({ error: err.message });
     }
 
-    // ✅ FRONTEND-FRIENDLY RESPONSE
-    const formatted = rows.map((r) => ({
-      ...r,
-      svg_url: `/svgs/${path.basename(r.svg_path)}`,
+    const results = rows.map((row) => ({
+      id: row.kid_symbol, // use the correct column
+      symbol_name: row.symbol_name,
+      svg_url: row.svg_file ? `http://localhost:${PORT}/svgs/${row.svg_file}` : "",
+      name: row.name || row.symbol_name,
+      company: row.company || "",
+      category: row.category || "",
+      device_type: row.device_type || "",
+      voltage_rating: row.voltage_rating ?? 0,
+      current_rating: row.current_rating ?? 0,
+      power_rating: row.power_rating ?? 0,
+      package: row.package || "",
+      pin_count: row.pin_count ?? 0,
+      mount_type: row.mount_type || "",
+      datasheet: row.datasheet || "",
+      simulation_available: Boolean(row.simulation_available),
+      simulation_parameters: row.simulation_parameters ? JSON.parse(row.simulation_parameters) : {},
+      tags: row.tags ? row.tags.split(",") : [],
     }));
 
-    res.json(formatted);
+    res.json(results);
   });
-});
-
-// =======================
-// ROOT TEST
-// =======================
-app.get("/", (req, res) => {
-  res.send("✅ Backend is running");
 });
 
 // =======================
 // START SERVER
 // =======================
 app.listen(PORT, () => {
-  console.log(`🚀 Server running at http://localhost:${PORT}`);
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
 });

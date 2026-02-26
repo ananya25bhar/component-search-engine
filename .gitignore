@@ -14,7 +14,7 @@ dist-ssr
 *.local
 
 # Databases (ignore DB files)
-data/*.db
+# data/*.db
 data/*.db-journal
 scripts/*.db
 
