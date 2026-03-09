@@ -11,12 +11,17 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 /* =====================
+   PROJECT ROOT
+===================== */
+
+const ROOT = path.resolve(__dirname, "..", "..");
+
+/* =====================
    PATHS
 ===================== */
 
-const ROOT = __dirname;
-const SYMBOLS_DIR = path.join(ROOT, "symbols");
-const DB_PATH = path.join(ROOT, "symbols.db");
+const SYMBOLS_DIR = path.join(ROOT, "data", "symbols");
+const DB_PATH = path.join(ROOT, "data", "symbols.db");
 
 /* =====================
    DB
@@ -35,17 +40,22 @@ function extractCategory(symbolName: string): string {
   if (name.includes("capacitor") || name.includes("cap")) return "Capacitors";
   if (name.includes("inductor") || name.includes("ind")) return "Inductors";
   if (name.includes("diode")) return "Diodes";
+
   if (
     name.includes("transistor") ||
     name.includes("bjt") ||
     name.includes("fet") ||
     name.includes("mosfet")
   ) return "Transistors";
+
   if (name.includes("ic") || name.includes("chip"))
     return "Integrated Circuits";
+
   if (name.includes("connector") || name.includes("header"))
     return "Connectors";
+
   if (name.includes("switch")) return "Switches";
+
   if (name.includes("led")) return "LEDs";
 
   return "Miscellaneous";
@@ -56,6 +66,7 @@ function extractCategory(symbolName: string): string {
 ===================== */
 
 db.serialize(() => {
+
   db.run(`DROP TABLE IF EXISTS symbols`);
   db.run(`DROP TABLE IF EXISTS pins`);
 
@@ -100,6 +111,7 @@ db.serialize(() => {
   let totalSymbols = 0;
 
   for (const file of files) {
+
     const raw = fs.readFileSync(
       path.join(SYMBOLS_DIR, file),
       "utf-8"
@@ -109,6 +121,7 @@ db.serialize(() => {
       raw.match(/\(symbol\s+"[^"]+"[\s\S]*?\n\)/g) ?? [];
 
     for (const block of blocks) {
+
       const nameMatch = block.match(/\(symbol\s+"([^"]+)"/);
       if (!nameMatch) continue;
 
@@ -146,9 +159,10 @@ db.serialize(() => {
           "",
           1,
           "{}",
-          JSON.stringify([symbolName.toLowerCase()]),
+          JSON.stringify([symbolName.toLowerCase()])
         ],
         function (this: sqlite3.RunResult, err: Error | null) {
+
           if (err) {
             console.error(err);
             return;
@@ -163,6 +177,7 @@ db.serialize(() => {
           let pinCount = 0;
 
           while ((match = pinRegex.exec(block)) !== null) {
+
             pinCount++;
 
             db.run(
@@ -170,6 +185,7 @@ db.serialize(() => {
                VALUES (?, ?, ?)`,
               [kid_symbol, match[2], match[1]]
             );
+
           }
 
           if (pinCount > 0) {
@@ -178,14 +194,18 @@ db.serialize(() => {
               [pinCount, kid_symbol]
             );
           }
+
         }
       );
 
       totalSymbols++;
+
     }
+
   }
 
   console.log(`Database populated with ${totalSymbols} individual symbols`);
+
 });
 
 db.close();

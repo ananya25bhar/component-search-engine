@@ -1,8 +1,14 @@
 import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 import Database from "better-sqlite3";
 
-// Path to DB (same folder as this script)
-const DB_PATH = "symbols.db";
+// Fix __dirname for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Database path (relative, not absolute)
+const DB_PATH = path.join(__dirname, "../data/symbols.db");
 
 // Check if DB exists
 if (!fs.existsSync(DB_PATH)) {
@@ -19,12 +25,12 @@ const columnNames = columns.map(c => c.name);
 
 if (!columnNames.includes("category")) {
     db.prepare(`ALTER TABLE symbols ADD COLUMN category TEXT`).run();
-    console.log("Added 'category' column ");
+    console.log("Added 'category' column");
 }
 
 if (!columnNames.includes("subcategory")) {
     db.prepare(`ALTER TABLE symbols ADD COLUMN subcategory TEXT`).run();
-    console.log("Added 'subcategory' column ");
+    console.log("Added 'subcategory' column");
 }
 
 // Step 2: Prepare update statement
@@ -40,45 +46,41 @@ console.log(`Total symbols to categorize: ${rows.length}`);
 
 // Step 4: Categorize each symbol
 for (const r of rows) {
+
     const text = `${r.component_type || ""} ${r.tags || ""}`.toLowerCase();
+
     let category = "Other";
     let subcategory = "Other";
 
-    // Resistors
-    if(text.includes("resistor") || text.includes("ohm") || text.match(/\b\d+k\b/)) {
+    if (text.includes("resistor") || text.includes("ohm") || text.match(/\b\d+k\b/)) {
         category = "Passive";
         subcategory = "Resistor";
-    } 
-    // Capacitors
-    else if(text.includes("capacitor") || text.includes("uf")) {
+    }
+    else if (text.includes("capacitor") || text.includes("uf")) {
         category = "Passive";
         subcategory = "Capacitor";
-    } 
-    // Diodes
-    else if(text.includes("diode")) {
+    }
+    else if (text.includes("diode")) {
         category = "Active";
         subcategory = "Diode";
-    } 
-    // Transistors / MOSFETs
-    else if(text.includes("transistor") || text.includes("mosfet") || text.includes("fet")) {
+    }
+    else if (text.includes("transistor") || text.includes("mosfet") || text.includes("fet")) {
         category = "Active";
         subcategory = "Transistor";
-    } 
-    // Voltage labels / regulators / numeric voltage
-    else if(
-        text.includes("voltage") || 
-        text.includes("regulator") || 
-        r.name.match(/^\+\d+v/i)
+    }
+    else if (
+        text.includes("voltage") ||
+        text.includes("regulator") ||
+        (r.name && r.name.match(/^\+\d+v/i))
     ) {
         category = "Power";
         subcategory = "Voltage Label";
     }
 
-    // Update DB row
     update.run(category, subcategory, r.id);
 }
 
-// Step 5: Verification - show first 30 rows
+// Step 5: Verification
 const sample = db.prepare(`
     SELECT name, component_type, tags, category, subcategory
     FROM symbols
@@ -88,4 +90,4 @@ const sample = db.prepare(`
 console.log("\nSample 30 categorized symbols:");
 console.table(sample);
 
-console.log("\n Categorization complete!");
+console.log("\nCategorization complete!");

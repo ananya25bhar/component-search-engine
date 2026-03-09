@@ -7,19 +7,10 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-# Node / build
 node_modules
 dist
 dist-ssr
 *.local
-
-# Databases (ignore DB files)
-# data/*.db
-data/*.db-journal
-scripts/*.db
-
-# Generated SVGs / thumbnails
-data/svgs/
 
 # Editor directories and files
 .vscode/*
@@ -31,4 +22,3 @@ data/svgs/
 *.njsproj
 *.sln
 *.sw?
-*.db

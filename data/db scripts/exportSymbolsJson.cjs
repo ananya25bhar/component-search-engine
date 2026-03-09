@@ -1,9 +1,13 @@
 const fs = require("fs");
 const path = require("path");
 
+// PROJECT ROOT
+const ROOT = path.resolve(__dirname, "..", "..");
+
 // CONFIG
-const SYMBOLS_DIR = path.join(__dirname, "symbols"); // your .kicad_sym files
-const OUTPUT_DIR = path.join(__dirname, "json_symbols");
+const SYMBOLS_DIR = path.join(ROOT, "data", "symbols"); // .kicad_sym files
+const OUTPUT_DIR = path.join(ROOT, "data", "json_symbols");
+
 if (!fs.existsSync(OUTPUT_DIR)) fs.mkdirSync(OUTPUT_DIR);
 
 // HELPER FUNCTIONS
@@ -33,9 +37,11 @@ function extractPins(symbolBlock) {
   const pins = [];
   const pinRegex = /\(pin\s+[^)]*\(name\s+"([^"]+)"\)[^)]*\(number\s+"([^"]+)"\)/g;
   let match;
+
   while ((match = pinRegex.exec(symbolBlock)) !== null) {
     pins.push({ name: match[1], number: match[2] });
   }
+
   return pins;
 }
 
@@ -46,14 +52,23 @@ function findDatasheet(contents) {
 
 function detectMountType(contents) {
   const text = contents.toLowerCase();
-  if (text.includes("smd") || text.includes("soic") || text.includes("qfn") || text.includes("msop"))
+
+  if (
+    text.includes("smd") ||
+    text.includes("soic") ||
+    text.includes("qfn") ||
+    text.includes("msop")
+  )
     return "SMD";
+
   if (text.includes("dip")) return "Through Hole";
+
   return "Unknown";
 }
 
 function extractTags(contents) {
   if (!contents) return [];
+
   return contents
     .toLowerCase()
     .split(/\W+/)
@@ -63,15 +78,23 @@ function extractTags(contents) {
 
 // PROCESS FILES
 const files = fs.readdirSync(SYMBOLS_DIR).filter(f => f.endsWith(".kicad_sym"));
+
 const allSymbols = [];
 
 files.forEach(file => {
-  const content = fs.readFileSync(path.join(SYMBOLS_DIR, file), "utf-8");
+
+  const content = fs.readFileSync(
+    path.join(SYMBOLS_DIR, file),
+    "utf-8"
+  );
+
   const symbolBlocks = extractSymbols(content);
 
   symbolBlocks.forEach(block => {
+
     const nameMatch = block.match(/\(symbol\s+"([^"]+)"/);
     if (!nameMatch) return;
+
     const symbolName = nameMatch[1];
     const pins = extractPins(block);
     const datasheet = findDatasheet(block);
@@ -95,11 +118,21 @@ files.forEach(file => {
     };
 
     // Write individual JSON
-    fs.writeFileSync(path.join(OUTPUT_DIR, `${symbolName}.json`), JSON.stringify(jsonSymbol, null, 2));
+    fs.writeFileSync(
+      path.join(OUTPUT_DIR, `${symbolName}.json`),
+      JSON.stringify(jsonSymbol, null, 2)
+    );
+
     allSymbols.push(jsonSymbol);
+
   });
+
 });
 
 // Write full JSON
-fs.writeFileSync("symbols.json", JSON.stringify(allSymbols, null, 2));
-console.log(` Done! ${allSymbols.length} symbols exported.`);
+fs.writeFileSync(
+  path.join(ROOT, "data", "symbols.json"),
+  JSON.stringify(allSymbols, null, 2)
+);
+
+console.log(`Done! ${allSymbols.length} symbols exported.`);

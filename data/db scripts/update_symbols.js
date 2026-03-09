@@ -1,10 +1,15 @@
 import fs from "fs";
 import path from "path";
 import Database from "better-sqlite3";
+import { fileURLToPath } from "url";
+
+// Fix __dirname for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Paths
-const DB_PATH = "symbols.db";
-const SVG_DIR = path.join(".", "svgs");
+const DB_PATH = path.join(__dirname, "symbols.db");
+const SVG_DIR = path.join(__dirname, "svgs");
 
 // Open DB
 const db = new Database(DB_PATH);
@@ -23,13 +28,12 @@ function categorize(row, filenameLower) {
     let category = "Other";
     let subcategory = "Other";
 
-    // Power / Voltage Labels first
     if(text.includes("voltage") || text.includes("vcc") || text.includes("vdd") || text.includes("vss") ||
        text.includes("gnd") || row.name?.match(/^\+\d+v/i) || row.name?.match(/^\-\d+v/i)) {
         category = "Power";
         subcategory = "Voltage Label";
     }
-    // ICs
+
     else if(
         text.startsWith("u") || text.startsWith("ic") ||
         text.includes("opamp") || text.includes("mux") ||
@@ -37,21 +41,20 @@ function categorize(row, filenameLower) {
         text.includes("clk") || text.includes("buffer") ||
         text.includes("logic")
     ) { category="IC"; subcategory="General"; }
-    // Active components
+
     else if(text.includes("diode")) { category="Active"; subcategory="Diode"; }
     else if(text.includes("led")) { category="Active"; subcategory="LED"; }
     else if(text.includes("transistor") || text.includes("mosfet") || text.includes("fet")) { category="Active"; subcategory="Transistor"; }
     else if(text.includes("sw") || text.includes("button")) { category="Active"; subcategory="Switch"; }
-    // Passive components
+
     else if(text.includes("resistor") || text.includes("ohm") || text.match(/\b\d+k\b/)) { category="Passive"; subcategory="Resistor"; }
     else if(text.includes("capacitor") || text.includes("uf") || text.includes("pf") || text.includes("nf")) { category="Passive"; subcategory="Capacitor"; }
     else if(text.includes("inductor") || text.includes("mh") || text.includes("uh")) { category="Passive"; subcategory="Inductor"; }
     else if(text.includes("xtal") || text.includes("crystal")) { category="Passive"; subcategory="Oscillator"; }
-    // Misc / connectors / fuse
+
     else if(text.includes("conn") || text.includes("header") || text.includes("pin")) { category="Misc"; subcategory="Connector"; }
     else if(text.includes("fuse")) { category="Power"; subcategory="Fuse"; }
 
-    // Fallback: infer from filename first letter
     if(category === "Other") {
         const firstChar = filenameLower[0];
         switch(firstChar) {

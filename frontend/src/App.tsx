@@ -109,6 +109,7 @@ export default function App() {
 
   return (
     <div style={{ fontFamily: "Inter, Arial", background: "#f7f8fa", minHeight: "100vh" }}>
+      
       {/* Header */}
       <div
         style={{
@@ -116,25 +117,14 @@ export default function App() {
           padding: "16px 28px",
           fontSize: 22,
           fontWeight: 600,
-          color: "#fff",
+          color: "#f4ebeb",
           display: "flex",
           justifyContent: "space-between",
         }}
       >
         <div>Component Search Engine</div>
 
-        <button
-          onClick={() => setShowLicense(true)}
-          style={{
-            background: "#fff",
-            border: "none",
-            padding: "6px 12px",
-            borderRadius: 6,
-            cursor: "pointer",
-          }}
-        >
-          License
-        </button>
+        
       </div>
 
       {/* Search */}
@@ -148,7 +138,7 @@ export default function App() {
             padding: 14,
             fontSize: 15,
             borderRadius: 8,
-            border: "1px solid #d1d5db",
+            border: "1px solid #f0f2f6",
           }}
         />
       </div>
@@ -164,8 +154,9 @@ export default function App() {
                 <img
                   src={item.svg_url}
                   alt={item.symbol_name}
-                  style={{ width: "100%", height: 90, objectFit: "contain", background: "#f1f5f9" }}
+                  style={{ width: "100%", height: 90, objectFit: "contain", background: "#edf0f4" }}
                 />
+
                 {item.license && <div style={licenseBadgeStyle}>{item.license}</div>}
 
                 <div style={{ marginTop: 8, fontWeight: 600, textAlign: "center", color: "#000" }}>
@@ -185,15 +176,14 @@ export default function App() {
       )}
 
       <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(5, 1fr)",
-          gap: 20,
-          padding: "0 30px 40px",
-          maxWidth: 1400,
-          margin: "0 auto",
-        }}
-      >
+  style={{
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
+    gap: 20,
+    padding: "0 30px 40px",
+    width: "100%",
+  }}
+>
         {results.map(item => (
           <div
             key={item.id}
@@ -206,8 +196,9 @@ export default function App() {
             <img
               src={item.svg_url}
               alt={item.symbol_name}
-              style={{ width: "100%", height: 140, objectFit: "contain", background: "#f1f5f9" }}
+              style={{ width: "100%", height: 140, objectFit: "contain", background: "#f1f3f5" }}
             />
+
             {item.license && <div style={licenseBadgeStyle}>{item.license}</div>}
 
             <div style={{ marginTop: 10, fontWeight: 600, textAlign: "center", color: "#000" }}>
@@ -217,41 +208,53 @@ export default function App() {
         ))}
       </div>
 
-      {/* Selected Component Modal */}
+      {/* Selected Component FULL SCREEN */}
       {selected && (
         <div
           onClick={() => setSelected(null)}
           style={{
             position: "fixed",
-            inset: 0,
-            background: "#ffffff",
-            zIndex: 200,
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            background: "#f5f0f0",
+            zIndex: 9999,
             display: "flex",
             flexDirection: "column",
           }}
         >
           <div onClick={e => e.stopPropagation()} style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+            
+            {/* Header with Close only */}
             <div
               style={{
                 padding: "14px 24px",
-                borderBottom: "1px solid #e5e7eb",
+                borderBottom: "1px solid #2f4676",
                 display: "flex",
-                justifyContent: "space-between",
+                justifyContent: "flex-end",
               }}
             >
-              <h2>{selected.name || selected.symbol_name}</h2>
               <button onClick={() => setSelected(null)}>Close</button>
             </div>
 
             <div style={{ flex: 1, display: "flex", gap: 30, padding: 30, overflowY: "auto" }}>
+              
+              {/* Image */}
               <div style={{ flex: "0 0 35%", textAlign: "center" }}>
                 <img
                   src={selected.svg_url}
                   alt={selected.symbol_name}
-                  style={{ width: "100%", maxHeight: 400, objectFit: "contain", background: "#f1f5f9" }}
+                  style={{
+                    width: "100%",
+                    maxHeight: "80vh",
+                    objectFit: "contain",
+                    background: "#e8ecef",
+                  }}
                 />
               </div>
 
+              {/* Details */}
               <div style={{ flex: 1, color: "#000" }}>
                 <p><b>ID:</b> {renderValue(selected.id)}</p>
                 <p><b>Symbol Name:</b> {renderValue(selected.symbol_name)}</p>
@@ -266,6 +269,7 @@ export default function App() {
                 <p><b>Power Rating:</b> {renderValue(selected.power_rating, " W")}</p>
                 <p><b>Simulation Available:</b> {selected.simulation_available ? "Yes" : "No"}</p>
                 <p><b>Tags:</b> {selected.tags && selected.tags.length > 0 ? selected.tags.join(", ") : "-"}</p>
+
                 <p>
                   <b>Datasheet:</b>{" "}
                   <a
@@ -280,8 +284,10 @@ export default function App() {
                     Open Datasheet
                   </a>
                 </p>
+
                 <p><b>License:</b> {renderValue(selected.license)}</p>
               </div>
+
             </div>
           </div>
         </div>
@@ -303,11 +309,12 @@ export default function App() {
             Close
           </button>
 
-          <h2>License</h2>
+          
 
           <pre style={{ whiteSpace: "pre-wrap", lineHeight: 1.6 }}>{license}</pre>
         </div>
       )}
+
     </div>
   );
 }

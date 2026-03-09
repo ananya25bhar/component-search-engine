@@ -2,10 +2,12 @@ const fs = require("fs");
 const path = require("path");
 const sqlite3 = require("sqlite3").verbose();
 
+/* ---------- ROOT ---------- */
+const ROOT = path.resolve(__dirname, "..", "..");
+
 /* ---------- PATHS ---------- */
-const ROOT = __dirname;
-const SVG_DIR = path.join(ROOT, "svgs");        // folder containing 26k+ svgs
-const DB_PATH = path.join(ROOT, "symbols.db");  // sqlite db
+const SVG_DIR = path.join(ROOT, "data", "svgs");        // folder containing svgs
+const DB_PATH = path.join(ROOT, "data", "symbols.db");  // sqlite db
 
 /* ---------- DB ---------- */
 const db = new sqlite3.Database(DB_PATH);
@@ -91,7 +93,7 @@ db.serialize(() => {
 
   const files = fs.readdirSync(SVG_DIR).filter(f => f.endsWith(".svg"));
 
-  console.log(`🔍 SVG files found: ${files.length}`);
+  console.log(`SVG files found: ${files.length}`);
 
   const stmt = db.prepare(`
     INSERT INTO thumbnails (symbol_name, svg_file, svg_path, tags)
@@ -101,8 +103,12 @@ db.serialize(() => {
   let count = 0;
 
   files.forEach(file => {
+
     const symbolName = path.basename(file, ".svg");
-    const svgPath = path.join("svgs", file); // frontend-friendly path
+
+    // frontend-friendly path
+    const svgPath = path.join("svgs", file);
+
     const tag = getTag(symbolName);
 
     stmt.run(
@@ -113,10 +119,13 @@ db.serialize(() => {
     );
 
     count++;
+
   });
 
   stmt.finalize();
-  console.log(` Inserted ${count} thumbnails with intelligent tags`);
+
+  console.log(`Inserted ${count} thumbnails with intelligent tags`);
+
 });
 
 db.close();

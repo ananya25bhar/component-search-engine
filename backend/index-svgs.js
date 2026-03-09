@@ -7,26 +7,31 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Correct paths
+// Project root directory
 const ROOT = path.resolve(__dirname, "..");
+
+// Relative paths (NO absolute paths)
 const DATA_DIR = path.join(ROOT, "data");
+const SVG_DIR = path.join(DATA_DIR, "svgs");
 const DB_PATH = path.join(DATA_DIR, "symbols.db");
 
-// Open database
+// Open SQLite database
 const db = new sqlite3.Database(DB_PATH, (err) => {
-  if (err) return console.error(" DB open error:", err.message);
-  console.log(" SQLite DB opened successfully");
+  if (err) {
+    console.error("DB open error:", err.message);
+    return;
+  }
+  console.log("SQLite DB opened successfully");
 });
 
 // Extract symbol type from SVG
 function extractSymbolType(svgFilePath) {
   const content = fs.readFileSync(svgFilePath, "utf-8");
   const match = content.match(/>([DRCLQ])\?<\/text>/);
-  if (match) return match[1];
-  return "other";
+  return match ? match[1] : "other";
 }
 
-// Map symbol code to readable name
+// Symbol type mapping
 const symbolMap = {
   D: "Diode",
   R: "Resistor",
@@ -37,48 +42,99 @@ const symbolMap = {
 
 db.serialize(() => {
 
-  db.run(`DROP TABLE IF EXISTS symbols`);
-
+  // Create table (matching server.cjs schema)
   db.run(`
-    CREATE TABLE symbols (
+    CREATE TABLE IF NOT EXISTS symbols (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
+      symbol_name TEXT,
       name TEXT,
-      reference TEXT,
-      component_type TEXT
+      company TEXT,
+      category TEXT,
+      device_type TEXT,
+      voltage_rating REAL DEFAULT 0,
+      current_rating REAL DEFAULT 0,
+      power_rating REAL DEFAULT 0,
+      package TEXT,
+      pin_count INTEGER DEFAULT 0,
+      mount_type TEXT,
+      datasheet TEXT,
+      simulation_available INTEGER DEFAULT 0,
+      simulation_parameters TEXT,
+      tags TEXT,
+      contents TEXT,
+      svg_file TEXT,
+      license TEXT
     )
-  `, (err) => {
-    if (err) return console.error(" Table creation error:", err.message);
-    console.log(" Table 'symbols' created");
-  });
-
-  const stmt = db.prepare(`
-    INSERT INTO symbols (name, reference, component_type)
-    VALUES (?, ?, ?)
   `);
 
-  // Get all SVG files inside data folder
-  const files = fs.readdirSync(DATA_DIR)
+  // Insert statement
+  const stmt = db.prepare(`
+    INSERT INTO symbols (
+      id,
+      symbol_name,
+      name,
+      company,
+      category,
+      device_type,
+      voltage_rating,
+      current_rating,
+      power_rating,
+      package,
+      pin_count,
+      mount_type,
+      datasheet,
+      simulation_available,
+      simulation_parameters,
+      tags,
+      contents,
+      svg_file,
+      license
+    )
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `);
+
+  // Read all SVG files from svgs folder
+  const files = fs
+    .readdirSync(SVG_DIR)
     .filter(file => file.endsWith(".svg"));
 
-  console.log(` Found ${files.length} SVG files`);
+  console.log(`Found ${files.length} SVG files`);
 
   for (const file of files) {
-    const fullPath = path.join(DATA_DIR, file);
+
+    const fullPath = path.join(SVG_DIR, file);
     const reference = file.replace(".svg", "");
 
     const symbolCode = extractSymbolType(fullPath);
-    const componentType = symbolMap[symbolCode] || "other";
+    const componentType = symbolMap[symbolCode] || "Other";
 
-    stmt.run(componentType, reference, componentType, (err) => {
-      if (err) console.error(" Insert error:", err.message);
-    });
+    stmt.run(
+      reference,      // symbol_name
+      reference,      // name
+      "Generic",      // company
+      "",             // category
+      componentType,  // device_type
+      0,              // voltage_rating
+      0,              // current_rating
+      0,              // power_rating
+      "",             // package
+      0,              // pin_count
+      "",             // mount_type
+      "",             // datasheet
+      0,              // simulation_available
+      "{}",           // simulation_parameters
+      "[]",           // tags
+      "",             // contents
+      file,           // svg_file
+      "KiCad Libraries - CC-BY-SA 4.0"
+    );
   }
 
   stmt.finalize(() => {
-    console.log(" All SVGs indexed successfully");
+    console.log("All SVGs indexed successfully");
 
     db.close(() => {
-      console.log(" SQLite DB closed");
+      console.log("SQLite DB closed");
     });
   });
 
