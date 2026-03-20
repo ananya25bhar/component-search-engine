@@ -1,0 +1,1570 @@
+[
+  {
+    "name": "4xxx",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 1,
+    "svg_file": "bzx384xxxx-1.svg"
+  },
+  {
+    "name": "4xxx_IEEE",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 2,
+    "svg_file": null
+  },
+  {
+    "name": "74xGxx",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 3,
+    "svg_file": null
+  },
+  {
+    "name": "74xx",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 4,
+    "svg_file": "pic16f874-xxip-1.svg"
+  },
+  {
+    "name": "74xx_IEEE",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 5,
+    "svg_file": null
+  },
+  {
+    "name": "Amplifier_Audio",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 6,
+    "svg_file": null
+  },
+  {
+    "name": "Amplifier_Buffer",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 7,
+    "svg_file": null
+  },
+  {
+    "name": "Amplifier_Current",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 8,
+    "svg_file": null
+  },
+  {
+    "name": "Amplifier_Difference",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 9,
+    "svg_file": null
+  },
+  {
+    "name": "Amplifier_Instrumentation",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 10,
+    "svg_file": null
+  },
+  {
+    "name": "Amplifier_Operational",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 11,
+    "svg_file": null
+  },
+  {
+    "name": "Amplifier_Video",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 12,
+    "svg_file": null
+  },
+  {
+    "name": "Analog",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 13,
+    "svg_file": null
+  },
+  {
+    "name": "Analog_ADC",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 14,
+    "svg_file": null
+  },
+  {
+    "name": "Analog_DAC",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 15,
+    "svg_file": null
+  },
+  {
+    "name": "Analog_Switch",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 16,
+    "svg_file": "audiojack2_dual_ground_switch_1-1.svg"
+  },
+  {
+    "name": "Audio",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 17,
+    "svg_file": "audiojack2-1.svg"
+  },
+  {
+    "name": "Battery_Management",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 18,
+    "svg_file": null
+  },
+  {
+    "name": "Buffer",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 19,
+    "svg_file": null
+  },
+  {
+    "name": "Comparator",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 20,
+    "svg_file": null
+  },
+  {
+    "name": "Connector",
+    "category": "Misc",
+    "device_type": "Connector",
+    "symbol_id": 21,
+    "svg_file": null
+  },
+  {
+    "name": "Connector_Audio",
+    "category": "Misc",
+    "device_type": "Connector",
+    "symbol_id": 22,
+    "svg_file": null
+  },
+  {
+    "name": "Connector_Generic",
+    "category": "Misc",
+    "device_type": "Connector",
+    "symbol_id": 23,
+    "svg_file": "aat1217ica-1.2-1.svg"
+  },
+  {
+    "name": "Connector_Generic_MountingPin",
+    "category": "Misc",
+    "device_type": "Connector",
+    "symbol_id": 24,
+    "svg_file": "aat1217ica-1.2-1.svg"
+  },
+  {
+    "name": "Connector_Generic_Shielded",
+    "category": "Misc",
+    "device_type": "Connector",
+    "symbol_id": 25,
+    "svg_file": "aat1217ica-1.2-1.svg"
+  },
+  {
+    "name": "Converter_ACDC",
+    "category": "Other",
+    "device_type": "Other",
+    "symbol_id": 26,
+    "svg_file": null
+  },
+  {
+    "name": "Converter_DCDC",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 27,
+    "svg_file": null
+  },
+  {
+    "name": "CPLD_Altera",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 28,
+    "svg_file": null
+  },
+  {
+    "name": "CPLD_Microchip",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 29,
+    "svg_file": "aat1217ica-1.2-1.svg"
+  },
+  {
+    "name": "CPLD_Renesas",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 30,
+    "svg_file": null
+  },
+  {
+    "name": "CPLD_Xilinx",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 31,
+    "svg_file": null
+  },
+  {
+    "name": "CPU",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 32,
+    "svg_file": "fan_cpu_4pin-1.svg"
+  },
+  {
+    "name": "CPU_NXP_6800",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 33,
+    "svg_file": null
+  },
+  {
+    "name": "CPU_NXP_68000",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 34,
+    "svg_file": null
+  },
+  {
+    "name": "CPU_NXP_IMX",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 35,
+    "svg_file": null
+  },
+  {
+    "name": "CPU_PowerPC",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 36,
+    "svg_file": null
+  },
+  {
+    "name": "Device",
+    "category": "Other",
+    "device_type": "Other",
+    "symbol_id": 37,
+    "svg_file": "aat1217ica-1.2-1.svg"
+  },
+  {
+    "name": "Diode",
+    "category": "Active",
+    "device_type": "Diode",
+    "symbol_id": 38,
+    "svg_file": null
+  },
+  {
+    "name": "Diode_Bridge",
+    "category": "Active",
+    "device_type": "Diode",
+    "symbol_id": 39,
+    "svg_file": null
+  },
+  {
+    "name": "Diode_Laser",
+    "category": "Passive",
+    "device_type": "Inductor",
+    "symbol_id": 40,
+    "svg_file": null
+  },
+  {
+    "name": "Display_Character",
+    "category": "Active",
+    "device_type": "Diode",
+    "symbol_id": 41,
+    "svg_file": null
+  },
+  {
+    "name": "Display_Graphic",
+    "category": "Active",
+    "device_type": "Diode",
+    "symbol_id": 42,
+    "svg_file": "aat1217ica-1.2-1.svg"
+  },
+  {
+    "name": "Driver_Display",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 43,
+    "svg_file": null
+  },
+  {
+    "name": "Driver_FET",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 44,
+    "svg_file": null
+  },
+  {
+    "name": "Driver_Haptic",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 45,
+    "svg_file": "aat1217ica-1.2-1.svg"
+  },
+  {
+    "name": "Driver_LED",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 46,
+    "svg_file": "8p8c_led-1.svg"
+  },
+  {
+    "name": "Driver_Motor",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 47,
+    "svg_file": null
+  },
+  {
+    "name": "Driver_Relay",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 48,
+    "svg_file": null
+  },
+  {
+    "name": "Driver_TEC",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 49,
+    "svg_file": null
+  },
+  {
+    "name": "DSP_AnalogDevices",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 50,
+    "svg_file": "aat1217ica-1.2-1.svg"
+  },
+  {
+    "name": "DSP_Freescale",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 51,
+    "svg_file": null
+  },
+  {
+    "name": "DSP_Microchip_DSPIC33",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 52,
+    "svg_file": "aat1217ica-1.2-1.svg"
+  },
+  {
+    "name": "DSP_Motorola",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 53,
+    "svg_file": null
+  },
+  {
+    "name": "DSP_Texas",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 54,
+    "svg_file": null
+  },
+  {
+    "name": "Fiber_Optic",
+    "category": "Other",
+    "device_type": "Other",
+    "symbol_id": 55,
+    "svg_file": "aat1217ica-1.2-1.svg"
+  },
+  {
+    "name": "Filter",
+    "category": "Other",
+    "device_type": "Other",
+    "symbol_id": 56,
+    "svg_file": "filter_emi_c-1.svg"
+  },
+  {
+    "name": "FPGA_CologneChip_GateMate",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 57,
+    "svg_file": null
+  },
+  {
+    "name": "FPGA_Efinix_Trion",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 58,
+    "svg_file": null
+  },
+  {
+    "name": "FPGA_Lattice",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 59,
+    "svg_file": "aat1217ica-1.2-1.svg"
+  },
+  {
+    "name": "FPGA_Microsemi",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 60,
+    "svg_file": "aat1217ica-1.2-1.svg"
+  },
+  {
+    "name": "FPGA_Xilinx",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 61,
+    "svg_file": null
+  },
+  {
+    "name": "FPGA_Xilinx_Artix7",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 62,
+    "svg_file": null
+  },
+  {
+    "name": "FPGA_Xilinx_Kintex7",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 63,
+    "svg_file": null
+  },
+  {
+    "name": "FPGA_Xilinx_Spartan6",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 64,
+    "svg_file": null
+  },
+  {
+    "name": "FPGA_Xilinx_Virtex5",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 65,
+    "svg_file": null
+  },
+  {
+    "name": "FPGA_Xilinx_Virtex6",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 66,
+    "svg_file": null
+  },
+  {
+    "name": "FPGA_Xilinx_Virtex7",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 67,
+    "svg_file": null
+  },
+  {
+    "name": "GPU",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 68,
+    "svg_file": null
+  },
+  {
+    "name": "Graphic",
+    "category": "Other",
+    "device_type": "Other",
+    "symbol_id": 69,
+    "svg_file": "aat1217ica-1.2-1.svg"
+  },
+  {
+    "name": "Interface",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 70,
+    "svg_file": null
+  },
+  {
+    "name": "Interface_CAN_LIN",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 71,
+    "svg_file": null
+  },
+  {
+    "name": "Interface_CurrentLoop",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 72,
+    "svg_file": null
+  },
+  {
+    "name": "Interface_Ethernet",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 73,
+    "svg_file": null
+  },
+  {
+    "name": "Interface_Expansion",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 74,
+    "svg_file": null
+  },
+  {
+    "name": "Interface_HDMI",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 75,
+    "svg_file": null
+  },
+  {
+    "name": "Interface_HID",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 76,
+    "svg_file": null
+  },
+  {
+    "name": "Interface_LineDriver",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 77,
+    "svg_file": null
+  },
+  {
+    "name": "Interface_Optical",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 78,
+    "svg_file": "aat1217ica-1.2-1.svg"
+  },
+  {
+    "name": "Interface_Telecom",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 79,
+    "svg_file": null
+  },
+  {
+    "name": "Interface_UART",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 80,
+    "svg_file": null
+  },
+  {
+    "name": "Interface_USB",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 81,
+    "svg_file": null
+  },
+  {
+    "name": "Isolator",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 82,
+    "svg_file": null
+  },
+  {
+    "name": "Isolator_Analog",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 83,
+    "svg_file": null
+  },
+  {
+    "name": "Jumper",
+    "category": "Other",
+    "device_type": "Other",
+    "symbol_id": 84,
+    "svg_file": "jumper_2_bridged-1.svg"
+  },
+  {
+    "name": "LED",
+    "category": "Active",
+    "device_type": "Diode",
+    "symbol_id": 85,
+    "svg_file": "8p8c_led-1.svg"
+  },
+  {
+    "name": "Logic_LevelTranslator",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 86,
+    "svg_file": "aat1217ica-1.2-1.svg"
+  },
+  {
+    "name": "Logic_Programmable",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 87,
+    "svg_file": "aat1217ica-1.2-1.svg"
+  },
+  {
+    "name": "MCU_AnalogDevices",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 88,
+    "svg_file": "aat1217ica-1.2-1.svg"
+  },
+  {
+    "name": "MCU_Cypress",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 89,
+    "svg_file": null
+  },
+  {
+    "name": "MCU_Dialog",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 90,
+    "svg_file": null
+  },
+  {
+    "name": "MCU_Espressif",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 91,
+    "svg_file": null
+  },
+  {
+    "name": "MCU_Intel",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 92,
+    "svg_file": null
+  },
+  {
+    "name": "MCU_Microchip_8051",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 93,
+    "svg_file": "aat1217ica-1.2-1.svg"
+  },
+  {
+    "name": "MCU_Microchip_ATmega",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 94,
+    "svg_file": "aat1217ica-1.2-1.svg"
+  },
+  {
+    "name": "MCU_Microchip_ATtiny",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 95,
+    "svg_file": "aat1217ica-1.2-1.svg"
+  },
+  {
+    "name": "MCU_Microchip_AVR",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 96,
+    "svg_file": "aat1217ica-1.2-1.svg"
+  },
+  {
+    "name": "MCU_Microchip_AVR_Dx",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 97,
+    "svg_file": "aat1217ica-1.2-1.svg"
+  },
+  {
+    "name": "MCU_Microchip_PIC10",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 98,
+    "svg_file": "aat1217ica-1.2-1.svg"
+  },
+  {
+    "name": "MCU_Microchip_PIC12",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 99,
+    "svg_file": "aat1217ica-1.2-1.svg"
+  },
+  {
+    "name": "MCU_Microchip_PIC16",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 100,
+    "svg_file": "aat1217ica-1.2-1.svg"
+  },
+  {
+    "name": "MCU_Microchip_PIC18",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 101,
+    "svg_file": "aat1217ica-1.2-1.svg"
+  },
+  {
+    "name": "MCU_Microchip_PIC24",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 102,
+    "svg_file": "aat1217ica-1.2-1.svg"
+  },
+  {
+    "name": "MCU_Microchip_PIC32",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 103,
+    "svg_file": "aat1217ica-1.2-1.svg"
+  },
+  {
+    "name": "MCU_Microchip_SAMA",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 104,
+    "svg_file": "aat1217ica-1.2-1.svg"
+  },
+  {
+    "name": "MCU_Microchip_SAMD",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 105,
+    "svg_file": "aat1217ica-1.2-1.svg"
+  },
+  {
+    "name": "MCU_Microchip_SAME",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 106,
+    "svg_file": "aat1217ica-1.2-1.svg"
+  },
+  {
+    "name": "MCU_Microchip_SAML",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 107,
+    "svg_file": "aat1217ica-1.2-1.svg"
+  },
+  {
+    "name": "MCU_Microchip_SAMV",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 108,
+    "svg_file": "aat1217ica-1.2-1.svg"
+  },
+  {
+    "name": "MCU_Module",
+    "category": "Other",
+    "device_type": "Other",
+    "symbol_id": 109,
+    "svg_file": null
+  },
+  {
+    "name": "MCU_Nordic",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 110,
+    "svg_file": "aat1217ica-1.2-1.svg"
+  },
+  {
+    "name": "MCU_NXP_ColdFire",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 111,
+    "svg_file": null
+  },
+  {
+    "name": "MCU_NXP_HC11",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 112,
+    "svg_file": null
+  },
+  {
+    "name": "MCU_NXP_HC12",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 113,
+    "svg_file": null
+  },
+  {
+    "name": "MCU_NXP_HCS12",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 114,
+    "svg_file": null
+  },
+  {
+    "name": "MCU_NXP_Kinetis",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 115,
+    "svg_file": null
+  },
+  {
+    "name": "MCU_NXP_LPC",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 116,
+    "svg_file": null
+  },
+  {
+    "name": "MCU_NXP_MAC7100",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 117,
+    "svg_file": null
+  },
+  {
+    "name": "MCU_NXP_MCore",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 118,
+    "svg_file": null
+  },
+  {
+    "name": "MCU_NXP_NTAG",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 119,
+    "svg_file": null
+  },
+  {
+    "name": "MCU_NXP_S08",
+    "category": "Other",
+    "device_type": "Other",
+    "symbol_id": 120,
+    "svg_file": null
+  },
+  {
+    "name": "MCU_Parallax",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 121,
+    "svg_file": null
+  },
+  {
+    "name": "MCU_Puya",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 122,
+    "svg_file": null
+  },
+  {
+    "name": "MCU_RaspberryPi",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 123,
+    "svg_file": null
+  },
+  {
+    "name": "MCU_Renesas_Synergy_S1",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 124,
+    "svg_file": null
+  },
+  {
+    "name": "MCU_SiFive",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 125,
+    "svg_file": null
+  },
+  {
+    "name": "MCU_SiliconLabs",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 126,
+    "svg_file": "aat1217ica-1.2-1.svg"
+  },
+  {
+    "name": "MCU_STC",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 127,
+    "svg_file": null
+  },
+  {
+    "name": "MCU_ST_STM32C0",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 128,
+    "svg_file": null
+  },
+  {
+    "name": "MCU_ST_STM32F0",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 129,
+    "svg_file": null
+  },
+  {
+    "name": "MCU_ST_STM32F1",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 130,
+    "svg_file": null
+  },
+  {
+    "name": "MCU_ST_STM32F2",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 131,
+    "svg_file": null
+  },
+  {
+    "name": "MCU_ST_STM32F3",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 132,
+    "svg_file": null
+  },
+  {
+    "name": "MCU_ST_STM32F4",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 133,
+    "svg_file": null
+  },
+  {
+    "name": "MCU_ST_STM32F7",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 134,
+    "svg_file": null
+  },
+  {
+    "name": "MCU_ST_STM32G0",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 135,
+    "svg_file": null
+  },
+  {
+    "name": "MCU_ST_STM32G4",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 136,
+    "svg_file": null
+  },
+  {
+    "name": "MCU_ST_STM32H5",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 137,
+    "svg_file": null
+  },
+  {
+    "name": "MCU_ST_STM32H7",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 138,
+    "svg_file": null
+  },
+  {
+    "name": "MCU_ST_STM32L0",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 139,
+    "svg_file": null
+  },
+  {
+    "name": "MCU_ST_STM32L1",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 140,
+    "svg_file": null
+  },
+  {
+    "name": "MCU_ST_STM32L4",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 141,
+    "svg_file": null
+  },
+  {
+    "name": "MCU_ST_STM32L5",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 142,
+    "svg_file": null
+  },
+  {
+    "name": "MCU_ST_STM32MP1",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 143,
+    "svg_file": "visionsom-stm32mp1-1.svg"
+  },
+  {
+    "name": "MCU_ST_STM32U0",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 144,
+    "svg_file": null
+  },
+  {
+    "name": "MCU_ST_STM32U5",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 145,
+    "svg_file": null
+  },
+  {
+    "name": "MCU_ST_STM32WB",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 146,
+    "svg_file": null
+  },
+  {
+    "name": "MCU_ST_STM32WL",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 147,
+    "svg_file": null
+  },
+  {
+    "name": "MCU_ST_STM8",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 148,
+    "svg_file": null
+  },
+  {
+    "name": "MCU_Texas",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 149,
+    "svg_file": null
+  },
+  {
+    "name": "MCU_Texas_MSP430",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 150,
+    "svg_file": null
+  },
+  {
+    "name": "MCU_Texas_SimpleLink",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 151,
+    "svg_file": null
+  },
+  {
+    "name": "MCU_WCH_CH32V0",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 152,
+    "svg_file": null
+  },
+  {
+    "name": "MCU_WCH_CH32V2",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 153,
+    "svg_file": null
+  },
+  {
+    "name": "MCU_WCH_CH32V3",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 154,
+    "svg_file": null
+  },
+  {
+    "name": "MCU_WCH_CH32X0",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 155,
+    "svg_file": null
+  },
+  {
+    "name": "Mechanical",
+    "category": "Active",
+    "device_type": "Diode",
+    "symbol_id": 156,
+    "svg_file": "aat1217ica-1.2-1.svg"
+  },
+  {
+    "name": "Memory_EEPROM",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 157,
+    "svg_file": null
+  },
+  {
+    "name": "Memory_EPROM",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 158,
+    "svg_file": null
+  },
+  {
+    "name": "Memory_Flash",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 159,
+    "svg_file": null
+  },
+  {
+    "name": "Memory_NVRAM",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 160,
+    "svg_file": null
+  },
+  {
+    "name": "Memory_RAM",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 161,
+    "svg_file": null
+  },
+  {
+    "name": "Memory_ROM",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 162,
+    "svg_file": null
+  },
+  {
+    "name": "Memory_UniqueID",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 163,
+    "svg_file": null
+  },
+  {
+    "name": "Motor",
+    "category": "Other",
+    "device_type": "Other",
+    "symbol_id": 164,
+    "svg_file": "motor_ac-1.svg"
+  },
+  {
+    "name": "Oscillator",
+    "category": "Other",
+    "device_type": "Other",
+    "symbol_id": 165,
+    "svg_file": null
+  },
+  {
+    "name": "Potentiometer_Digital",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 166,
+    "svg_file": null
+  },
+  {
+    "name": "power",
+    "category": "Other",
+    "device_type": "Other",
+    "symbol_id": 167,
+    "svg_file": "conn_coaxial_power-1.svg"
+  },
+  {
+    "name": "Power_Management",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 168,
+    "svg_file": null
+  },
+  {
+    "name": "Power_Protection",
+    "category": "Active",
+    "device_type": "Diode",
+    "symbol_id": 169,
+    "svg_file": null
+  },
+  {
+    "name": "Power_Supervisor",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 170,
+    "svg_file": null
+  },
+  {
+    "name": "Reference_Current",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 171,
+    "svg_file": null
+  },
+  {
+    "name": "Reference_Voltage",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 172,
+    "svg_file": null
+  },
+  {
+    "name": "Regulator_Controller",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 173,
+    "svg_file": null
+  },
+  {
+    "name": "Regulator_Current",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 174,
+    "svg_file": null
+  },
+  {
+    "name": "Regulator_Linear",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 175,
+    "svg_file": null
+  },
+  {
+    "name": "Regulator_SwitchedCapacitor",
+    "category": "Passive",
+    "device_type": "Capacitor",
+    "symbol_id": 176,
+    "svg_file": "cap002dg-1.svg"
+  },
+  {
+    "name": "Regulator_Switching",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 177,
+    "svg_file": "audiojack2_dual_ground_switch_1-1.svg"
+  },
+  {
+    "name": "Relay",
+    "category": "Other",
+    "device_type": "Other",
+    "symbol_id": 178,
+    "svg_file": "relay_dpdt-1.svg"
+  },
+  {
+    "name": "Relay_SolidState",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 179,
+    "svg_file": null
+  },
+  {
+    "name": "RF",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 180,
+    "svg_file": "adafruit_feather_m0_rfm69hcw_packet_radio-1.svg"
+  },
+  {
+    "name": "RF_Amplifier",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 181,
+    "svg_file": null
+  },
+  {
+    "name": "RF_AM_FM",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 182,
+    "svg_file": null
+  },
+  {
+    "name": "RF_Bluetooth",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 183,
+    "svg_file": null
+  },
+  {
+    "name": "RF_Filter",
+    "category": "Other",
+    "device_type": "Other",
+    "symbol_id": 184,
+    "svg_file": null
+  },
+  {
+    "name": "RF_GPS",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 185,
+    "svg_file": null
+  },
+  {
+    "name": "RF_GSM",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 186,
+    "svg_file": null
+  },
+  {
+    "name": "RF_Mixer",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 187,
+    "svg_file": null
+  },
+  {
+    "name": "RF_Module",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 188,
+    "svg_file": null
+  },
+  {
+    "name": "RF_NFC",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 189,
+    "svg_file": null
+  },
+  {
+    "name": "RF_RFID",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 190,
+    "svg_file": null
+  },
+  {
+    "name": "RF_Switch",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 191,
+    "svg_file": "audiojack2_dual_ground_switch_1-1.svg"
+  },
+  {
+    "name": "RF_WiFi",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 192,
+    "svg_file": null
+  },
+  {
+    "name": "RF_ZigBee",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 193,
+    "svg_file": null
+  },
+  {
+    "name": "Security",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 194,
+    "svg_file": null
+  },
+  {
+    "name": "Sensor",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 195,
+    "svg_file": null
+  },
+  {
+    "name": "Sensor_Audio",
+    "category": "Other",
+    "device_type": "Other",
+    "symbol_id": 196,
+    "svg_file": null
+  },
+  {
+    "name": "Sensor_Current",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 197,
+    "svg_file": null
+  },
+  {
+    "name": "Sensor_Distance",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 198,
+    "svg_file": null
+  },
+  {
+    "name": "Sensor_Energy",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 199,
+    "svg_file": null
+  },
+  {
+    "name": "Sensor_Gas",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 200,
+    "svg_file": null
+  },
+  {
+    "name": "Sensor_Humidity",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 201,
+    "svg_file": null
+  },
+  {
+    "name": "Sensor_Magnetic",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 202,
+    "svg_file": "aat1217ica-1.2-1.svg"
+  },
+  {
+    "name": "Sensor_Motion",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 203,
+    "svg_file": null
+  },
+  {
+    "name": "Sensor_Optical",
+    "category": "Passive",
+    "device_type": "Resistor",
+    "symbol_id": 204,
+    "svg_file": "aat1217ica-1.2-1.svg"
+  },
+  {
+    "name": "Sensor_Pressure",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 205,
+    "svg_file": null
+  },
+  {
+    "name": "Sensor_Proximity",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 206,
+    "svg_file": null
+  },
+  {
+    "name": "Sensor_Temperature",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 207,
+    "svg_file": null
+  },
+  {
+    "name": "Sensor_Touch",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 208,
+    "svg_file": null
+  },
+  {
+    "name": "Sensor_Voltage",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 209,
+    "svg_file": null
+  },
+  {
+    "name": "Simulation_SPICE",
+    "category": "Other",
+    "device_type": "Other",
+    "symbol_id": 210,
+    "svg_file": "aat1217ica-1.2-1.svg"
+  },
+  {
+    "name": "Switch",
+    "category": "Other",
+    "device_type": "Other",
+    "symbol_id": 211,
+    "svg_file": "audiojack2_dual_ground_switch_1-1.svg"
+  },
+  {
+    "name": "Timer",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 212,
+    "svg_file": null
+  },
+  {
+    "name": "Timer_PLL",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 213,
+    "svg_file": null
+  },
+  {
+    "name": "Timer_RTC",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 214,
+    "svg_file": null
+  },
+  {
+    "name": "Transformer",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 215,
+    "svg_file": "transformer_1p_1s-1.svg"
+  },
+  {
+    "name": "Transistor_Array",
+    "category": "Active",
+    "device_type": "Transistor",
+    "symbol_id": 216,
+    "svg_file": "npn-1.svg"
+  },
+  {
+    "name": "Transistor_BJT",
+    "category": "Active",
+    "device_type": "Transistor",
+    "symbol_id": 217,
+    "svg_file": "npn-1.svg"
+  },
+  {
+    "name": "Transistor_FET",
+    "category": "Active",
+    "device_type": "Transistor",
+    "symbol_id": 218,
+    "svg_file": "npn-1.svg"
+  },
+  {
+    "name": "Transistor_FET_Other",
+    "category": "Active",
+    "device_type": "Transistor",
+    "symbol_id": 219,
+    "svg_file": "npn-1.svg"
+  },
+  {
+    "name": "Transistor_IGBT",
+    "category": "Active",
+    "device_type": "Transistor",
+    "symbol_id": 220,
+    "svg_file": "npn-1.svg"
+  },
+  {
+    "name": "Transistor_Power_Module",
+    "category": "Active",
+    "device_type": "Transistor",
+    "symbol_id": 221,
+    "svg_file": "npn-1.svg"
+  },
+  {
+    "name": "Triac_Thyristor",
+    "category": "Active",
+    "device_type": "Transistor",
+    "symbol_id": 222,
+    "svg_file": null
+  },
+  {
+    "name": "Valve",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 223,
+    "svg_file": null
+  },
+  {
+    "name": "Video",
+    "category": "IC",
+    "device_type": "General",
+    "symbol_id": 224,
+    "svg_file": null
+  }
+]
