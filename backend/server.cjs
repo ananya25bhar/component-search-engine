@@ -11,7 +11,6 @@ app.use(express.json());
 
 /* ---------- Database ---------- */
 
-// connect to database
 const dbPath = path.join(__dirname, "../data/symbols.db");
 
 const db = new sqlite3.Database(dbPath, (err) => {
@@ -24,20 +23,29 @@ const db = new sqlite3.Database(dbPath, (err) => {
 
 /* ---------- Serve SVG files ---------- */
 
+//  FIXED (robust path)
 const svgFolder = path.join(__dirname, "../data/svgs");
+console.log("Serving SVGs from:", svgFolder);
+
 app.use("/svgs", express.static(svgFolder));
 
 /* ---------- Search API ---------- */
 
 app.get("/api/search", (req, res) => {
-  const q = req.query.q || "";       // get search text
-  const search = `%${q}%`;           // for LIKE query
+  const q = req.query.q || "";
+
+  // Escape special characters
+  const escapedQuery = q.replace(/([_%\\])/g, "\\$1");
+  const search = `%${escapedQuery}%`;
 
   const sql = `
-    SELECT * FROM symbols
-    WHERE symbol_name LIKE ?
-       OR category LIKE ?
-       OR device_type LIKE ?
+    SELECT *
+    FROM symbols
+    WHERE (
+      LOWER(symbol_name) LIKE LOWER(?) ESCAPE '\\'
+      OR LOWER(category) LIKE LOWER(?) ESCAPE '\\'
+      OR LOWER(device_type) LIKE LOWER(?) ESCAPE '\\'
+    )
     LIMIT 50
   `;
 
@@ -47,35 +55,34 @@ app.get("/api/search", (req, res) => {
       return res.status(500).json({ error: "Database error" });
     }
 
-    // format data for frontend
     const result = rows.map((row) => {
-      let tags = [];
+      // ✅ SVG fallback logic
+      let svg_url;
 
-      // convert tags safely
-      if (row.tags) {
-        try {
-          tags = JSON.parse(row.tags);
-        } catch {
-          tags = row.tags.split(",");
-        }
+      if (row.svg_path) {
+        svg_url = `http://localhost:${PORT}/${row.svg_path}`;
+      } else if (row.category?.toLowerCase().includes("connector")) {
+        svg_url = `http://localhost:${PORT}/svgs/connector.svg`; // optional
+      } else {
+        svg_url = `http://localhost:${PORT}/svgs/default.svg`; // fallback
       }
 
       return {
         id: row.id,
-        symbol_name: row.symbol_name || "",
-
-        svg_url: row.svg_path
-          ? `http://localhost:${PORT}/svgs/${row.svg_path}`
-          : "",
-
-        category: row.category || "",
-        device_type: row.device_type || "",
-
-        company: row.company || "",
-        datasheet: row.datasheet || "",
-
-        tags: tags,
-        license: row.license || ""
+        symbol_name: row.symbol_name ?? "",
+        svg_url,
+        category: row.category ?? "",
+        device_type: row.device_type ?? "",
+        datasheet: row.datasheet ?? "",
+        package: row.package ?? "",
+        pin_count: row.pin_count ?? "",
+        mount_type: row.mount_type ?? "",
+        voltage: row.voltage ?? "",
+        current: row.current ?? "",
+        power: row.power ?? "",
+        description: row.description ?? "",
+        base_name: row.base_name ?? "",
+        license: row.license ?? ""
       };
     });
 
@@ -87,7 +94,8 @@ app.get("/api/search", (req, res) => {
 
 app.get("/api/license", (req, res) => {
   const sql = `
-    SELECT license FROM symbols
+    SELECT license
+    FROM symbols
     WHERE license IS NOT NULL AND license != ""
     LIMIT 1
   `;
