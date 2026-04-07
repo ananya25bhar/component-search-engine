@@ -39,7 +39,6 @@ if (!fs.existsSync(SYMBOLS_DIR)) {
 // DB connect
 const db = new Database(DB_PATH);
 
-// Create table
 db.exec(`
   CREATE TABLE IF NOT EXISTS symbols (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -56,10 +55,10 @@ db.exec(`
     datasheet TEXT,
     description TEXT,
     license TEXT,
-    svg_path TEXT
+    svg_path TEXT,
+    UNIQUE(symbol_name, base_name)
   )
 `);
-
 // Clear old data
 db.exec("DELETE FROM symbols");
 

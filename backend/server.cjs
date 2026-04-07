@@ -21,20 +21,89 @@ const db = new sqlite3.Database(dbPath, (err) => {
   }
 });
 
-/* ---------- Serve SVG files ---------- */
+/* ---------- Serve SVG + PNG files ---------- */
 
-//  FIXED (robust path)
+// SVGs
 const svgFolder = path.join(__dirname, "../data/svgs");
-console.log("Serving SVGs from:", svgFolder);
-
 app.use("/svgs", express.static(svgFolder));
+
+// PNGs (FIXED)
+const pngFolder = path.join(__dirname, "../data/images");
+app.use("/images", express.static(pngFolder)); // ✅ FIX
+
+console.log("Serving SVGs from:", svgFolder);
+console.log("Serving PNGs from:", pngFolder); // ✅ FIX
+
+/* ---------- Ship Parts (LOCAL DATA) ---------- */
+
+const shipParts = [
+  {
+    id: "ship-1",
+    symbol_name: "BMB Pump",
+    category: "Mechanical",
+    png_url: `http://localhost:${PORT}/images/BMB.png`
+  },
+  {
+    id: "ship-2",
+    symbol_name: "Valve",
+    category: "Piping",
+    png_url: `http://localhost:${PORT}/images/valve of force chest pump.png`
+  },
+  {
+    id: "ship-3",
+    symbol_name: "Pipe",
+    category: "Piping",
+    png_url: `http://localhost:${PORT}/images/Flowjet.png`
+  },
+  {
+    id: "ship-4",
+    symbol_name: "Flowjet",
+    category: "Structure",
+    png_url: `http://localhost:${PORT}/images/Flowjet.png`
+  },
+  {
+    id: "ship-5",
+    symbol_name: "Shaft",
+    category: "Mechanical",
+    png_url: `http://localhost:${PORT}/images/SHAFT.png`
+  },
+  {
+    id: "ship-6",
+    symbol_name: "Rudder Base",
+    category: "Structure",
+    png_url: `http://localhost:${PORT}/images/rudder_base_v2.png`
+  },
+  {
+    id: "ship-7",
+    symbol_name: "Anchor Bracket",
+    category: "Structure",
+    png_url: `http://localhost:${PORT}/images/Model Anchor Bracket in FreeCAD-Body.png`
+  },
+  {
+    id: "ship-8",
+    symbol_name: "Navigation Light",
+    category: "Electrical",
+    png_url: `http://localhost:${PORT}/images/NAV_LIGHT.png`
+  },
+  {
+    id: "ship-9",
+    symbol_name: "Smiglo",
+    category: "Mechanical",
+    png_url: `http://localhost:${PORT}/images/Smiglo.png`
+  },
+  {
+    id: "ship-10",
+    symbol_name: "Example Plate",
+    category: "Structure",
+    png_url: `http://localhost:${PORT}/images/Hibbeler_Example_1_2.png`
+  }
+];
 
 /* ---------- Search API ---------- */
 
 app.get("/api/search", (req, res) => {
   const q = req.query.q || "";
 
-  // Escape special characters
   const escapedQuery = q.replace(/([_%\\])/g, "\\$1");
   const search = `%${escapedQuery}%`;
 
@@ -55,16 +124,16 @@ app.get("/api/search", (req, res) => {
       return res.status(500).json({ error: "Database error" });
     }
 
-    const result = rows.map((row) => {
-      // ✅ SVG fallback logic
+    /* ---------- DB RESULTS ---------- */
+    const dbResults = rows.map((row) => {
       let svg_url;
 
       if (row.svg_path) {
         svg_url = `http://localhost:${PORT}/${row.svg_path}`;
       } else if (row.category?.toLowerCase().includes("connector")) {
-        svg_url = `http://localhost:${PORT}/svgs/connector.svg`; // optional
+        svg_url = `http://localhost:${PORT}/svgs/connector.svg`;
       } else {
-        svg_url = `http://localhost:${PORT}/svgs/default.svg`; // fallback
+        svg_url = `http://localhost:${PORT}/svgs/default.svg`;
       }
 
       return {
@@ -86,29 +155,13 @@ app.get("/api/search", (req, res) => {
       };
     });
 
-    res.json(result);
-  });
-});
+    /* ---------- SHIP PARTS FILTER ---------- */
+    const filteredShipParts = shipParts.filter(item =>
+      item.symbol_name.toLowerCase().includes(q.toLowerCase())
+    );
 
-/* ---------- License API ---------- */
-
-app.get("/api/license", (req, res) => {
-  const sql = `
-    SELECT license
-    FROM symbols
-    WHERE license IS NOT NULL AND license != ""
-    LIMIT 1
-  `;
-
-  db.get(sql, [], (err, row) => {
-    if (err) {
-      console.log("License error:", err.message);
-      return res.status(500).json({ error: "Database error" });
-    }
-
-    res.json({
-      license: row ? row.license : ""
-    });
+    /* ---------- FINAL RESPONSE ---------- */
+    res.json([...filteredShipParts, ...dbResults]);
   });
 });
 
