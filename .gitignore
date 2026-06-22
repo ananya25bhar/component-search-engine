@@ -31,4 +31,11 @@ data/svgs/
 *.njsproj
 *.sln
 *.sw?
+*.dbdata/drone_png/
+data/drone_step/
+backend/.env
+data/ship_symbols/
+data/images/
+data/drone_png/
 *.db
+ 
